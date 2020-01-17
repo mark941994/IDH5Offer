@@ -1,6 +1,8 @@
 package offer.presentation;
 
+import offer.businesslogic.OfferManager;
 import offer.businesslogic.RecruiterManager;
+import offer.domain.Offer;
 import offer.domain.Recruiter;
 
 import javax.swing.*;
@@ -16,12 +18,14 @@ public class RecruiterGUI {
     private JButton addRecruiterButton;
     private JTextArea recruiterOverview;
     private JButton getRecruitersButton;
+    private JComboBox RecruiterList;
 
 
     public RecruiterGUI() {
         addRecruiterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+
                 AddRecruiterGUI.AddRecruiterGUI();
             }
         });
@@ -29,8 +33,22 @@ public class RecruiterGUI {
         getRecruitersButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                getRecruiters();
+                setComboBoxRecruiters();
+                //getRecruiters();
             }
+        });
+        RecruiterList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                getRecruiters(RecruiterList.getSelectedItem().toString());
+            }
+        });
+    }
+
+    public void setComboBoxRecruiters() {
+        List<Recruiter> recruiters = new RecruiterManager().ListRecruiters();
+        recruiters.forEach((recruiter) -> {
+            RecruiterList.addItem(recruiter.getName());
         });
     }
 
@@ -43,13 +61,16 @@ public class RecruiterGUI {
 
 
     }
-    public void getRecruiters(){
+    public void getRecruiters(String name){
+        recruiterOverview.removeAll();
         List<Recruiter> recruiters = new RecruiterManager().ListRecruiters();
         AtomicReference<String> text = new AtomicReference<>("");
         recruiters.forEach((recruiter) -> {
-            text.set(text + "Name: " +recruiter.getName() + "\n"
-                    + "Email: " + recruiter.getEmail() + "\n"
-                    + "Phone: " + recruiter.getPhone() + "\n\n");
+            if (recruiter.getName().equals(name)) {
+                text.set(text + "Name: " + recruiter.getName() + "\n"
+                        + "Email: " + recruiter.getEmail() + "\n"
+                        + "Phone: " + recruiter.getPhone() + "\n\n");
+            }
 
         });
         recruiterOverview.setText(text.get());

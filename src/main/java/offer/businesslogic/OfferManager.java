@@ -14,6 +14,9 @@ public class OfferManager {
         OfferDAO.createOffer(offer);
 
     }
+    public static void updateOffer(Offer offer) {
+        OfferDAO.updateOffer(offer);
+    }
     public static Offer calculateTotal(Offer offer){
         int total = offer.getMonthly() * 12;
         if (offer.getExtraMonth() == true) {

@@ -69,4 +69,14 @@ public class OfferDAO {
             connection.closeConnection();
         }
     }
+    public static void updateOffer(Offer offer) {
+        DatabaseConnection connection = new DatabaseConnection();
+        if (connection.openConnection()) {
+            // If a connection was successfully setup, execute the SELECT statement.
+
+            connection.executeSqlInsertStatement(
+                    "UPDATE offer SET recruiter = '"+ offer.getRecruiter() +"', amount = " + offer.getMonthly() + ", company = '" + offer.getCompany() +"', extraMonth = " + offer.getExtraMonth() + ", leaseBudget = "+ offer.getLeaseBudget() +", total = "+offer.getTotal()+ " WHERE Id = "+offer.getOfferId()+";");
+            connection.closeConnection();
+        }
+    }
 }

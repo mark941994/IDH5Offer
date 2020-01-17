@@ -23,8 +23,8 @@ public class HomeGUI {
         getOffersButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                List<Offer> offers = new OfferManager().ListOffers();
-                OfferGUI.OfferGUI(offers);
+
+                OfferGUI.OfferGUI();
             }
         });
         addOfferButton.addActionListener(new ActionListener() {

@@ -85,6 +85,7 @@ public class AddOfferGUI {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 Offer offer = new Offer( 0,
+
                         RecruiterComboBox.getSelectedItem().toString(),
                         CompanyCombobox.getSelectedItem().toString(),
                         validateInput(amountField.getText()),
